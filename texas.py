@@ -1,4 +1,15 @@
 #!/usr/bin/python
+"""Texas Hold 'Em Game Engine
+--------------------------
+	Goal:
+		Module that is a fully functional game engine to power WSOP rules Texas Hold 'Em
+
+	To Do:
+		Restructure hand() to be multiplayer
+        Learn pickle to send player objects
+		Define structured layout of engine
+		Transform this file into a functional module
+"""
 import random
 from collections import deque
 
@@ -6,76 +17,6 @@ deck = ['AH','2H','3H','4H','5H','6H','7H','8H','9H','TH','JH','QH','KH','AD','2
 players = deque()
 table = []
 pot = lastRaise = 0
-
-class Player:
-  playerCnt = 1
-
-  def __init__(self, name=None, user=False):
-    self.name = name
-    self.user = user
-    if self.name == None:
-      self.name = 'player'+str(Player.playerCnt)
-      Player.playerCnt += 1
-    self.hand = []
-    self.purse = 100
-    self.ante = 0
-    self.check = False
-    self.fold = False
-    self.dec = False
-
-  def showHand(self):
-    print self.name+' '+' '.join(self.hand)+' $'+str(self.purse)
-
-  def decide(self):
-    global lastRaise
-    dif = lastRaise - self.ante
-    if self.fold == True:
-      return 0
-    if self.user == True:
-      k = 'a'
-      if dif == 0:
-	while k not in ('c', 'r', 'f'):
-	  k = raw_input("[c] to check, [r] to raise, or [f] to fold: ")
-	if k == 'c':
-	  print self.name+' checks'
-	  self.check = True
-	elif k == 'r':
-	  j = int(raw_input("How much? "))
-	  print self.name+' raises $'+str(j)
-	  self.rais(j)
-	elif k == 'f':
-	  print self.name+' folds'
-	  for i in range(2):
-	    self.hand.pop()
-	  self.fold = True
-      else:
-        while k not in ('c', 'r', 'f'):
-          k = raw_input("[c] to call $"+str(dif)+", [r] to raise, or [f] to fold: ")
-        if k == 'c':
-	  print self.name+' calls $'+str(dif)
-          self.rais(dif)
-        elif k == 'r':
-          j = int(raw_input("How much? "))
-          print self.name+' raises $'+str(j)
-          self.rais(j)
-        elif k == 'f':
-	  print self.name+' folds'
-          for i in range(2):
-            self.hand.pop()
-          self.fold = True
-    else:
-      if dif == 0:
-	print self.name+" checks"
-	self.check = True
-      else:
-        print self.name+" calls $"+str(lastRaise)
-        self.rais(dif)
-
-  def rais(self, amt):
-    global lastRaise
-    self.purse -= amt
-    self.ante += amt
-    lastRaise = self.ante
 
 def bettingRound():
   global lastRaise
@@ -87,9 +28,9 @@ def bettingRound():
   while players[turn].dec == False or (players[turn].ante < lastRaise or (lastRaise == 0 and players[turn].check == False)):
     if players[turn].fold == True:
       if turn < len(players)-1:
-	turn += 1
+        turn += 1
       else:
-	turn = 0
+        turn = 0
       continue
     players[turn].decide()
     players[turn].dec = True
@@ -152,19 +93,14 @@ def turnRiver():
   deck.pop() # burn
   table.append(deck.pop())
 
-def main():
-  nm = raw_input("What's your name? ")
-  you = Player(nm, True)
-  players.append(you)
+#def main():
+#  nm = raw_input("What's your name? ")
+#  you = Player(nm)
+#  players.append(you)
+def shuffleDeck():
   for i in range(random.randint(1,6)):
     random.shuffle(deck)
-  cnt = raw_input("How many other players? ")
-  for x in range(int(cnt)):
-    tmp = Player()
-    players.append(tmp)
-  while len(deck) > (len(players)*2+8):
-    hand(you)
-    players.rotate(-1)
 
-if __name__=='__main__':
-  main()
+#  while len(deck) > (len(players)*2+8):
+#    hand(you)
+#    players.rotate(-1)
