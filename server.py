@@ -34,25 +34,24 @@ def worker(c, addr):
         print uname+' is watching the table'
         c.send('You\'re watching the table.\t\tpervert..')
         tab.watchers.append(user)
-        connections.append((c, addr, uname))
     elif sit == 'p':
         print uname+' is playing'
         c.send('You\'re really playing? Good luck.')
         tab.players.append(user)
-        connections.append((c, addr, uname))
     else:
         del user
+        connections.remove(addr)
         print 'Users still here:'
         for x in connections:
-            print str(x[2])+'@'+str(x[1])
+            print str(addr)
         c.send('Goodbye.')
         print uname+' left this realm'
         c.close
     # Here is where I leave off for now
 
 while True:
-    sit = 'a'
     c, addr=s.accept()
+    connections.append(addr)
     t = threading.Thread(target=worker, args=(c, addr))
     threads.append(t)
     t.start()
