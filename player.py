@@ -19,7 +19,8 @@ class Player:
     Player.playerCnt += 1
 
   def showHand(self):
-    print '\n'+self.name+' is holding '+' '.join(self.hand)
+    data = '\n'+self.name+' is holding '+' '.join(self.hand)
+    return data
 
   def decide(self):
     global lastRaise

@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import socket
-import player
 
 s=socket.socket()
 host=socket.gethostname()
@@ -15,6 +14,4 @@ epass = passw.encode('rot_13')
 del passw
 s.send(uname+' '+epass)
 print s.recv(1024)
-user = player.Player(uname)
-user.showHand()
 s.close
