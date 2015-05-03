@@ -10,11 +10,10 @@
 		Define structured layout of engine
 		Transform this file into a functional module
 """
-import random
-from collections import deque
 import player
+import pitch
+
 def hand(you):
-  global table
   deal()
   players[0].rais(5)
   players[1].rais(10)

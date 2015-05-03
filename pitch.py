@@ -59,6 +59,16 @@ class Pitch:
         for i in range(3):
             self.table.append(deck.pop())
 
+    def showPitch(self):
+        print '\nCurrently Playing:'
+        for play in self.players:
+            print ' '+play+' ',
+        print '\n\nCurrently Watching:'
+        for watch in self.watchers:
+            print ' '+watch.name+' ',
+        print '\n# of Cards Remaining in Deck: '+str(len(self.deck)),
+        print ' | Current Pot: $'+str(self.pot)+' | Last Raise: $'+str(self.lastRaise)
+
     def showTable(self):
         return 'On the table: '+' '.join(self.table)
 
