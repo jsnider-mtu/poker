@@ -11,7 +11,6 @@
 		Transform this file into a functional module
 """
 import player
-import pitch
 
 def hand(you):
   deal()

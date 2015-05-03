@@ -3,7 +3,7 @@
 Work on decide() (it doesn't look functional at all)
 
 """
-import texas
+import pitch
 
 class Player:
   playerCnt = 0
@@ -23,7 +23,6 @@ class Player:
     return data
 
   def decide(self):
-    global lastRaise
     dif = lastRaise - self.ante
     if self.fold == True:
       return 0
@@ -59,7 +58,6 @@ class Player:
           self.fold = True
 
   def rais(self, amt):
-    global lastRaise
     self.purse -= amt
     self.ante += amt
-    lastRaise = self.ante
+    pitch.lastRaise = self.ante

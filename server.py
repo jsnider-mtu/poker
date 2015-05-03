@@ -30,17 +30,24 @@ while True:
     print 'uname: '+uname+' | encoded passw: '+epass
     c.send('Welcome to the lobby '+uname+'!')
     user = player.Player(uname)
+    c.send('\n"p" for play, "w" for watch, or "l" for leave:')
     while sit not in ['p', 'w', 'l']:
-        c.send('"p" for play, "w" for watch, or "l" for leave:')
         sit = c.recv(1)
     if sit == 'w':
+        print 'Watching'
+        c.send('\nWatching.\n')
         tab.watchers.append(user)
     elif sit == 'p':
+        print 'Playing'
+        c.send('\nPlaying.\n')
         tab.players.append(user)
     else:
         del user
+        c.send('Goodbye.')
+        print uname+' left'
         c.close
-        continue
+        break
+    sit = 'a'
     connections.append(c)
     if len(connections) < 2:
         continue
@@ -49,3 +56,4 @@ while True:
     else:
         #start game, but continue to accept connections
         break
+    print str(len(connections))
