@@ -3,8 +3,6 @@
 Work on decide() (it doesn't look functional at all)
 
 """
-import pitch
-
 class Player:
   playerCnt = 0
 
@@ -56,8 +54,3 @@ class Player:
         for i in range(2):
           self.hand.pop()
           self.fold = True
-
-  def rais(self, amt):
-    self.purse -= amt
-    self.ante += amt
-    pitch.lastRaise = self.ante

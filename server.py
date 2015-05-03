@@ -9,7 +9,6 @@ import socket
 import player
 import pitch
 
-sit='a'
 connections=[]
 s=socket.socket()
 host=socket.gethostname()
@@ -22,38 +21,33 @@ tab = pitch.Pitch()
 print '[INFO] Table created'
 
 while True:
+    sit = 'a'
     c, addr=s.accept()
     print 'Got connection from', addr
     c.send('Thank you for connecting')
-    data = c.recv(1024)
-    uname, epass = data.split(' ', 1)
-    print 'uname: '+uname+' | encoded passw: '+epass
-    c.send('Welcome to the lobby '+uname+'!')
+    uname = c.recv(50)
     user = player.Player(uname)
-    c.send('\n"p" for play, "w" for watch, or "l" for leave:')
-    while sit not in ['p', 'w', 'l']:
-        sit = c.recv(1)
+    print uname+' has walked in, everyone stare!'
+    c.send('Welcome to the table '+uname+'!')
+    sit = c.recv(1)
     if sit == 'w':
-        print 'Watching'
-        c.send('\nWatching.\n')
+        print uname+' is watching the table'
+        c.send('You\'re watching the table.\t\tpervert..')
         tab.watchers.append(user)
+        connections.append((c, addr, uname))
+        continue
     elif sit == 'p':
-        print 'Playing'
-        c.send('\nPlaying.\n')
+        print uname+' is playing'
+        c.send('You\'re really playing? Good luck.')
         tab.players.append(user)
+        connections.append((c, addr, uname))
+        continue
     else:
         del user
+        print 'Users still here:'
+        for x in connections:
+            print str(x[2])+'@'+str(x[1])
         c.send('Goodbye.')
-        print uname+' left'
+        print uname+' left this realm'
         c.close
-        break
-    sit = 'a'
-    connections.append(c)
-    if len(connections) < 2:
         continue
-    elif len(tab.players) < 2:
-        continue
-    else:
-        #start game, but continue to accept connections
-        break
-    print str(len(connections))

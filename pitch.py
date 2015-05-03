@@ -4,7 +4,6 @@ desired in server.py
 """
 import random
 from collections import deque
-import player
 
 class Pitch:
     def __init__(self):
