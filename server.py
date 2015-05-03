@@ -5,6 +5,7 @@ Eventually I want to be able to host more than one table
 
 First, implement a table structure for players to join, watch, and leave
 """
+import threading
 import socket
 import player
 import pitch
@@ -20,9 +21,8 @@ print '[INFO] Server listening on port '+str(port)
 tab = pitch.Pitch()
 print '[INFO] Table created'
 
-while True:
-    sit = 'a'
-    c, addr=s.accept()
+threads = []
+def worker(c, addr):
     print 'Got connection from', addr
     c.send('Thank you for connecting')
     uname = c.recv(50)
@@ -35,13 +35,11 @@ while True:
         c.send('You\'re watching the table.\t\tpervert..')
         tab.watchers.append(user)
         connections.append((c, addr, uname))
-        continue
     elif sit == 'p':
         print uname+' is playing'
         c.send('You\'re really playing? Good luck.')
         tab.players.append(user)
         connections.append((c, addr, uname))
-        continue
     else:
         del user
         print 'Users still here:'
@@ -50,4 +48,11 @@ while True:
         c.send('Goodbye.')
         print uname+' left this realm'
         c.close
-        continue
+    # Here is where I leave off for now
+
+while True:
+    sit = 'a'
+    c, addr=s.accept()
+    t = threading.Thread(target=worker, args=(c, addr))
+    threads.append(t)
+    t.start()

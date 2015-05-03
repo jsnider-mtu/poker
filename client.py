@@ -19,5 +19,3 @@ print s.recv(50)
 if sit == 'l':
     s.close
     exit(0)
-nex = s.recv(1)
-
