@@ -7,7 +7,6 @@ First, implement a table structure for players to join, watch, and leave
 """
 import threading
 import socket
-import player
 import pitch
 
 connections=[]
@@ -22,11 +21,64 @@ tab = pitch.Pitch()
 print '[INFO] Table created'
 
 threads = []
+
+class Player:
+  playerCnt = 0
+
+  def __init__(self, name):
+    self.name = name
+    self.hand = []
+    self.purse = 100
+    self.ante = 0
+    self.check = False
+    self.fold = False
+    self.dec = False
+    Player.playerCnt += 1
+
+  def showHand(self):
+    data = '\n'+self.name+' is holding '+' '.join(self.hand)
+    return data
+
+  def decide(self):
+    dif = lastRaise - self.ante
+    if self.fold == True:
+      return 0
+    if dif == 0:
+      while k not in ('c', 'r', 'f'):
+        k = raw_input("[c] to check, [r] to raise, or [f] to fold: ")
+      if k == 'c':
+        print self.name+' checks'
+        self.check = True
+      elif k == 'r':
+        j = int(raw_input("How much? "))
+        print self.name+' raises $'+str(j)
+        self.rais(j)
+      elif k == 'f':
+        print self.name+' folds'
+        for i in range(2):
+          self.hand.pop()
+        self.fold = True
+    else:
+      while k not in ('c', 'r', 'f'):
+        k = raw_input("[c] to call $"+str(dif)+", [r] to raise, or [f] to fold: ")
+      if k == 'c':
+        print self.name+' calls $'+str(dif)
+        self.rais(dif)
+      elif k == 'r':
+        j = int(raw_input("How much? "))
+        print self.name+' raises $'+str(j)
+        self.rais(j)
+      elif k == 'f':
+        print self.name+' folds'
+        for i in range(2):
+          self.hand.pop()
+          self.fold = True
+
 def worker(c, addr):
     print 'Got connection from', addr
     c.send('Thank you for connecting')
     uname = c.recv(50)
-    user = player.Player(uname)
+    user = Player(uname)
     print uname+' has walked in, everyone stare!'
     c.send('Welcome to the table '+uname+'!')
     sit = c.recv(1)
