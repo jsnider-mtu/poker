@@ -158,3 +158,10 @@ class Pitch:
 
 class NoFundsError(Exception):
     pass
+
+class Server:
+  def __init__(self, hostname=localhost):
+    hostname = self.hostname
+
+if __name__ == '__main__':
+  s = Server()
