@@ -4,18 +4,20 @@ The player has a purse, an ante, and a hand
 
 (Plus a name, UID, and some state flags)
 """
+
+import deck
+
 class Player:
   playerCnt = 0
 
-  def __init__(self, name):
+  def __init__(self, name, purse=100):
     self.allIn = False
     self.name = name
-    self.hand = []
-    self.purse = 100
+    self.hand = deck.Hand()
+    self.purse = purse
     self.ante = 0
     self.check = False
     self.fold = False
-    self.dec = False
     self.uniq = Player.playerCnt
     Player.playerCnt += 1
 

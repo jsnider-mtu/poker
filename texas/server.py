@@ -36,26 +36,31 @@ server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 server.bind((bind_ip,bind_port))
 
-server.listen(100)
+server.listen(10) # Not sure of a good limit here, starting with 10
 
 print("[*] Listening on %s:%d" % (bind_ip,bind_port))
 
 # this is our client-handling thread
 def handle_client(client_socket):
+  """
+    This thread's purpose is to authenticate a user before they enter
+    the service-land. We're mimicking IRC in that any user can enter
+    but only once, at least for now. Once logged in we'll fork a new
+    process if they create a new Pitch. The point is to limit how easy
+    it is for the service to be DoS'ed by accident.
+  """
   
-  # print out what the client sends
   request = client_socket.recv(1024)
   
   print("[*] Received: %s" % request)
 
   # Parse the request
-  
-  
-  # send back a packet
-  client_socket.send("ACK!")
-  
-  client_socket.close()
-  
+  # The first thing client sends should be USER name for the player
+  if not request.startswith('USER '):
+    msg = "{'Error': {'Invalid Syntax': 400}}"
+	client_socket.send(msg)
+	client_socket.close()
+
 while True:
   
   client,addr = server.accept()
