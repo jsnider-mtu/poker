@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""The Deck class"""
+"""The Deck and Card classes"""
 
 import random
 
@@ -16,21 +16,12 @@ class Card:
     def __repr__(self):
         return '{} of {}'.format(self.value, self.suit)
 
-class Hand(list):
-    def __init__(self):
-        """Create a collection of cards."""
-        self.hand = []
-
-    def __add__(self, card):
-        assert isinstance(card, Card)
-        self.hand.append(card)
-
-class Deck(Hand):
-    def __init__(self):
+class Deck:
+    def __init__(self, suits=[], valueRange=14):
         """Create a deck (unshuffled)"""
-        self.hand = []
-        self.hand.append(Card(s, v) for s in ['Hearts', 'Clubs', 'Diamonds',
-                                              'Spades'] for v in range(1,14))
+        self.deck = []
+        self.deck.append(Card(s, v) for s in suits for v in range(1,
+                                                        valueRange))
 
     def shuffle(self):
         """Shuffle the deck some number of times between 1 and 6"""

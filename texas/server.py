@@ -28,45 +28,49 @@ many as possible:
 """
 import socket
 import threading
+import lobby
 
-bind_ip = "0.0.0.0"
-bind_port = 9999
+class Server:
+    """
+    The Server class has one lobby with multiple games.
+    Games have a one-to-one relationship to a Pitch.
+    
+    Parameters: bind_ip, bind_port
+    Attributes: self.bind_ip, self.bind_port, sock
+    Methods: main
+    """
 
-server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    def __init__(self, bind_ip='0.0.0.0', bind_port=9999):
+        self.bind_ip = bind_ip
+        self.bind_port = bind_port
+        self.sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        return self
 
-server.bind((bind_ip,bind_port))
+    # this is our client-handling thread
+    def handle_client(client_socket):
+        """
+        This thread's purpose is to authenticate a user before they enter
+        the service-land. We're mimicking IRC in that any user can enter
+        but only once, at least for now. Once logged in we'll fork a new
+        process if they create a new Pitch. The point is to limit how easy
+        it is for the service to be DoS'ed by accident.
+        """
+        request = client_socket.recv(1024)
+        print("[*] Received: %s" % request)
 
-server.listen(10) # Not sure of a good limit here, starting with 10
+        # Parse the request
+        # The first thing client sends should be USER name for the player
+        if not request.startswith('USER '):
+            msg = "{'Error': {'Invalid Syntax': 400}}"
+            client_socket.send(msg)
+            client_socket.close()
 
-print("[*] Listening on %s:%d" % (bind_ip,bind_port))
-
-# this is our client-handling thread
-def handle_client(client_socket):
-  """
-    This thread's purpose is to authenticate a user before they enter
-    the service-land. We're mimicking IRC in that any user can enter
-    but only once, at least for now. Once logged in we'll fork a new
-    process if they create a new Pitch. The point is to limit how easy
-    it is for the service to be DoS'ed by accident.
-  """
-  
-  request = client_socket.recv(1024)
-  
-  print("[*] Received: %s" % request)
-
-  # Parse the request
-  # The first thing client sends should be USER name for the player
-  if not request.startswith('USER '):
-    msg = "{'Error': {'Invalid Syntax': 400}}"
-	client_socket.send(msg)
-	client_socket.close()
-
-while True:
-  
-  client,addr = server.accept()
-  
-  print("[*] Accepted connection from: %s:%d" % (addr[0],addr[1]))
-  
-  # spin up our client thread to handle incoming data
-  client_handler = threading.Thread(target=handle_client,args=(client,))
-  client_handler.start()
+if __name__ == '__main__':
+    while True:
+        server = Server()
+        client,addr = server.sock.accept()
+        print("[*] Accepted connection from: %s:%d" % (addr[0],addr[1]))
+        # spin up our client thread to handle incoming data
+        client_handler = threading.Thread(target=server.handle_client,
+                                                args=(client,))
+        client_handler.start()
