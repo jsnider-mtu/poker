@@ -17,11 +17,12 @@ class Card:
         return '{} of {}'.format(self.value, self.suit)
 
 class Deck:
+    """A deck is a collection of cards"""
+
     def __init__(self, suits=[], valueRange=14):
         """Create a deck (unshuffled)"""
-        self.deck = []
-        self.deck.append(Card(s, v) for s in suits for v in range(1,
-                                                        valueRange))
+        self.deck = [Card(s, v) for s in suits for v in range(1,
+                                                        valueRange)]
 
     def shuffle(self):
         """Shuffle the deck some number of times between 1 and 6"""

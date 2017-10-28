@@ -1,37 +1,51 @@
 #!/usr/bin/python3
 """
-Starting with Texas Hold'Em for now
-Each game will have a definition for the Deck
+Texas Hold'Em
 """
-from dealer import *
 from deck import *
 from player import *
 
 class Game:
-    def __init__(self, user, name="Texas Hold'Em"):
-        self.name = name
-        self.user = user
-        if self.name == "Texas Hold'Em":
-            suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades']
-            valueRange = 14
-            self.deck = Deck(suits, valueRange)
-        elif self.name == "Petals":
-            # Add logic for a dice game
-            # instead of a card game
-            pass
-        else:
-            print('What the fuck are we playing?')
+    """
+    Handles the dealer logic now
+    """
+
+    def __init__(self, host):
+        self.suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades']
+        self.valueRange = 14
+        self.d = Deck(self.suits, self.valueRange)
+        self.players = [host]
 
     def __repr__(self):
-        return self.name
+        return self.players
 
     def begin(self):
-        pass
+        """
+        Need to figure out the actual game workflow now
+        So first we deal, then we have a betting round,
+        need to keep track of blind tokens for betting,
+        then we'll put cards on the table and go back to
+        betting rounds. At the end we'll need to know how
+        to determine the winner..
+        """
+        if len(self.players) == 1:
+            raise NotEnoughPlayers
+        else:
+            self.d.deal()
+            # Woah, what am I doin?
+
+#    def bet
+
+    def deal(self):
+        """
+        Deal the cards according to the game
+        """
+        for i in range(2):
+            for x in self.players:
+                x.hand.append(self.d.deck.pop())
+
+    def playerJoin(self, player):
+        self.players.append(player)
 
     def quit(self):
-        pass
-
-if __name__ == '__main__':
-    user = input("Username? ")
-    g = Game(user)
-    g.begin()
+        quit()

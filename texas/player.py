@@ -21,7 +21,7 @@ class Player:
         Player.playerCnt += 1
 
     def __repr__(self):
-        return 'Player {}'.format(self.name)
+        return 'Player {} is holding {}'.format(self.name, self.hand)
 
     def showHand(self):
         """
