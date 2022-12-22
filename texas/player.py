@@ -6,34 +6,36 @@ The player has a purse, an ante, and a hand
 """
 
 class Player:
-    playerCnt = 0
 
     def __init__(self, name, purse=100):
         self.allIn = False
         self.name = name
-        self.hand = []
+        self.hand = Hand()
         self.purse = purse
-        self.ante = 0
         self.check = False
         self.fold = False
-        self.uniq = Player.playerCnt
-        self.seat = None
-        Player.playerCnt += 1
+        self.lastbet = 0
+        self.hasbet = False
 
     def __repr__(self):
-        return 'Player {} is holding {}'.format(self.name, self.hand)
+        return f"Player {self.name} is holding {self.hand}\nTheir purse "\
+                "is at ${self.purse} and their last bet this round was "\
+                "{self.lastbet}"
 
-    def showHand(self):
-        """
-        Return a msg showing the player's state
-        """
-        msg = '\n'+self.name+' is holding '+' '.join(self.hand)
-        msg += '\nTheir purse is currently: $'+str(self.purse)
-        msg += '\nTheir ante is currently: $'+str(self.ante)
-        return msg
+    def blind(self, amount):
+        if amount <= self.purse:
+            self.purse -= amount
+            self.lastbet += amount
+            return True
+        return False
 
-    def blind(self, m):
-        pass
+    def bet(self, amount):
+        if amount <= self.purse:
+            self.purse -= amount
+            self.lastbet += amount
+            self.hasbet = True
+            return True
+        return False
 
     def check(self):
         pass
@@ -42,10 +44,4 @@ class Player:
         pass
 
     def fold(self):
-        pass
-
-    def sit(self):
-        """
-        Take a seat at a table
-        """
         pass

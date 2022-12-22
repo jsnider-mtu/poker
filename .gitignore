@@ -1,3 +1,4 @@
+todo
 venv/*
 __pycache__/*
 texas/__pycache__/*
@@ -9,3 +10,4 @@ include/*
 share/*
 bin/*
 .cache/*
+*.swp
