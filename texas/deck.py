@@ -19,10 +19,9 @@ class Card:
 class Deck:
     """A deck is a collection of cards"""
 
-    def __init__(self, suits=[], valueRange=14):
+    def __init__(self, suits=[]):
         """Create a deck (unshuffled)"""
-        self.deck = [Card(s, v) for s in suits for v in range(1,
-                                                        valueRange)]
+        self.deck = [Card(s, v) for s in suits for v in range(2, 15)]
 
     def shuffle(self):
         """Shuffle the deck some number of times between 1 and 6"""
@@ -40,6 +39,9 @@ class Hand:
         self.cards = []
         self.playername = playername
 
+    def __repr__(self):
+        return f"a {self.cards[0]} and a {self.cards[1]}"
+
     def add(self, card):
         if len(self.cards) >= 2:
             print(f"{playername}'s hand is already full")
@@ -53,20 +55,30 @@ class Community:
     """Community cards are the 5 shared cards dealt in 3 phases"""
 
     def __init__(self):
-        self.flop = None
-        self.turn = None
-        self.river = None
+        self.flopcards = None
+        self.turncard = None
+        self.rivercard = None
 
     def flop(self, deck):
         deck.pop(0)
-        self.flop = []
+        self.flopcards = []
         for x in range(3):
-            self.flop.append(deck.pop(0))
+            self.flopcards.append(deck.pop(0))
 
     def turn(self, deck):
         deck.pop(0)
-        self.turn = deck.pop(0)
+        self.turncard = deck.pop(0)
 
     def river(self, deck):
         deck.pop(0)
-        self.river = deck.pop(0)
+        self.rivercard = deck.pop(0)
+
+    def cards(self):
+        msg = "On the table:"
+        for x in self.flopcards:
+            msg += f" {x};"
+        if self.turncard:
+            msg += f" {self.turncard};"
+        if self.rivercard:
+            msg += f" {self.rivercard};"
+        return msg

@@ -8,14 +8,14 @@ The player has a purse, an ante, and a hand
 class Player:
 
     def __init__(self, name, purse=100):
-        self.allIn = False
         self.name = name
+        self.turn = False
         self.hand = Hand()
         self.purse = purse
-        self.check = False
-        self.fold = False
+        self.folded = False
         self.lastbet = 0
         self.hasbet = False
+        self.minbet = 0
 
     def __repr__(self):
         return f"Player {self.name} is holding {self.hand}\nTheir purse "\
@@ -29,19 +29,26 @@ class Player:
             return True
         return False
 
-    def bet(self, amount):
+    def bet(self, amount, diff):
+        if amount < self.minbet:
+            return False
         if amount <= self.purse:
-            self.purse -= amount
-            self.lastbet += amount
+            self.purse -= diff
+            self.lastbet = amount
             self.hasbet = True
+            self.turn = False
             return True
+        print(f"{amount} is greater than the purse: {self.purse}")
         return False
 
     def check(self):
-        pass
-
-    def rais(self):
-        pass
+        if self.minbet == 0:
+            self.Turn = False
+            return True
+        return False
 
     def fold(self):
-        pass
+        self.hand.fold()
+        self.folded = True
+        self.Turn = False
+        return True

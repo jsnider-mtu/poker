@@ -5,7 +5,7 @@ import os
 import sys
 import texas
 
-long_description = read('docs/README.txt')
+long_description = os.read('docs/README.txt')
 
 class PyTest(TestCommand):
     def finalize_options(self):
