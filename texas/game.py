@@ -166,12 +166,8 @@ class Game:
 
     def blinds(self):
         msg = ""
-        if self.table.inplay() == 2:
-            small = 1
-            big = 0
-        else:
-            small = ((self.dealer % self.table.inplay()) + 1) % self.table.inplay()
-            big = ((self.dealer % self.table.inplay()) + 2) % self.table.inplay()
+        small = ((self.dealer % self.table.inplay()) + 1) % self.table.inplay()
+        big = ((self.dealer % self.table.inplay()) + 2) % self.table.inplay()
         c = -1
         for x in self.table.seats:
             if x.isfilled():
