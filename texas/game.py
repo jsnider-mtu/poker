@@ -282,7 +282,7 @@ class Table:
                 x.p.minbet = 0
 
     def deepclean(self):
-        self.pot.clean()
+        self.pot.deepclean()
         self.comm.clean()
         for x in self.seats:
             if x.isfilled():
@@ -306,3 +306,7 @@ class Pot:
 
     def clean(self):
         self.lastbet = 0
+
+    def deepclean(self):
+        self.lastbet = 0
+        self.pot = 0
