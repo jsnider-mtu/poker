@@ -44,7 +44,7 @@ class Hand:
 
     def add(self, card):
         if len(self.cards) >= 2:
-            print(f"{playername}'s hand is already full")
+            print(f"{self.playername}'s hand is already full")
         else:
             self.cards.append(card)
 
@@ -60,17 +60,17 @@ class Community:
         self.rivercard = None
 
     def flop(self, deck):
-        deck.pop(0)
+        deck.deck.pop(0)
         self.flopcards = []
         for x in range(3):
             self.flopcards.append(deck.pop(0))
 
     def turn(self, deck):
-        deck.pop(0)
+        deck.deck.pop(0)
         self.turncard = deck.pop(0)
 
     def river(self, deck):
-        deck.pop(0)
+        deck.deck.pop(0)
         self.rivercard = deck.pop(0)
 
     def cards(self):
