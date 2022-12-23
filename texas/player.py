@@ -4,13 +4,14 @@ The player has a purse, an ante, and a hand
 
 (Plus a name, UID, and some state flags)
 """
+from . import deck
 
 class Player:
 
     def __init__(self, name, purse=100):
         self.name = name
         self.turn = False
-        self.hand = Hand()
+        self.hand = deck.Hand()
         self.purse = purse
         self.folded = False
         self.lastbet = 0
