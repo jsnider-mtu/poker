@@ -291,6 +291,7 @@ class Table:
         for x in self.seats:
             if x.isfilled():
                 x.p.hand.fold()
+                x.p.folded = False
                 x.p.turn = False
                 x.p.lastbet = 0
                 x.p.hasbet = False
