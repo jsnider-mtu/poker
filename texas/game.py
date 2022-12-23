@@ -2,8 +2,8 @@
 """
 Texas Hold'Em
 """
-from deck import *
-from player import *
+#from deck import *
+#from player import *
 
 class Game:
     """Configures the table and calculates the winner or each hand"""
