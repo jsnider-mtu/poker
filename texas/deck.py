@@ -63,15 +63,15 @@ class Community:
         deck.deck.pop(0)
         self.flopcards = []
         for x in range(3):
-            self.flopcards.append(deck.pop(0))
+            self.flopcards.append(deck.deck.pop(0))
 
     def turn(self, deck):
         deck.deck.pop(0)
-        self.turncard = deck.pop(0)
+        self.turncard = deck.deck.pop(0)
 
     def river(self, deck):
         deck.deck.pop(0)
-        self.rivercard = deck.pop(0)
+        self.rivercard = deck.deck.pop(0)
 
     def cards(self):
         msg = "On the table:"
