@@ -163,18 +163,17 @@ class Game:
 
     def blinds(self):
         msg = ""
-        a = self.dealer
+        curturn = 1
+        c = -1
         for x in self.table.seats:
             if x.isfilled():
                 if x.justsat == False:
-                    a += 1
-                    if a == self.table.seatstaken():
-                        a = 0
-                    if a == (self.dealer + 1) % self.table.seatstaken():
+                    c += 1
+                    if c == curturn:
                         x.p.blind(self.table.smallblind)
                         self.table.pot.add(self.table.smallblind, self.table.smallblind)
                         msg += f"{x.p.name} puts in the small blind ${self.table.smallblind}\n"
-                    elif a == (self.dealer + 2) % self.table.seatstaken():
+                    elif c == curturn + 1
                         x.p.blind(self.table.bigblind)
                         self.table.pot.add(self.table.bigblind, self.table.bigblind)
                         msg += f"{x.p.name} puts in the big blind ${self.table.bigblind}\n"
