@@ -14,6 +14,7 @@ class Game:
         self.table = Table(self.name, self.d, 8, 1, 2)
         self.dealer = 0
         self.playerturn = 3
+        self.running = False
 
     def __repr__(self):
         return f"Table: {self.table.name} has {len(self.table.seats)} seats, {self.table.seatstaken()} of which are taken"
@@ -165,11 +166,12 @@ class Game:
 
     def blinds(self):
         msg = ""
-        small = 1
         if self.table.inplay() == 2:
+            small = 1
             big = 0
         else:
-            big = 2
+            small = ((self.dealer % self.table.inplay()) + 1) % self.table.inplay()
+            big = ((self.dealer % self.table.inplay()) + 2) % self.table.inplay()
         c = -1
         for x in self.table.seats:
             if x.isfilled():
