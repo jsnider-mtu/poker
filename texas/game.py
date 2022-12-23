@@ -173,7 +173,7 @@ class Game:
                         x.p.blind(self.table.smallblind)
                         self.table.pot.add(self.table.smallblind, self.table.smallblind)
                         msg += f"{x.p.name} puts in the small blind ${self.table.smallblind}\n"
-                    elif c == curturn + 1
+                    elif c == curturn + 1:
                         x.p.blind(self.table.bigblind)
                         self.table.pot.add(self.table.bigblind, self.table.bigblind)
                         msg += f"{x.p.name} puts in the big blind ${self.table.bigblind}\n"
