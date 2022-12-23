@@ -20,8 +20,8 @@ class Player:
 
     def __repr__(self):
         return f"Player {self.name} is holding {self.hand}\nTheir purse "\
-                "is at ${self.purse} and their last bet this round was "\
-                "{self.lastbet}"
+               f"is at ${self.purse} and their last bet this round was "\
+               f"{self.lastbet}"
 
     def blind(self, amount):
         if amount <= self.purse:
