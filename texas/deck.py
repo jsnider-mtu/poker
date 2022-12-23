@@ -82,3 +82,8 @@ class Community:
         if self.rivercard:
             msg += f" {self.rivercard};"
         return msg
+
+    def clean(self):
+        self.flopcards = None
+        self.turncard = None
+        self.rivercard = None

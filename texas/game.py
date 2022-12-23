@@ -283,6 +283,7 @@ class Table:
 
     def deepclean(self):
         self.pot.clean()
+        self.comm.clean()
         for x in self.seats:
             if x.isfilled():
                 x.p.hand.fold()
