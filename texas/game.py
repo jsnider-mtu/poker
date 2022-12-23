@@ -290,7 +290,8 @@ class Pot:
 
     def add(self, amount, diff):
         self.pot += diff
-        self.lastbet = amount
+        if amount > self.lastbet:
+            self.lastbet = amount
 
     def clean(self):
         self.lastbet = 0
