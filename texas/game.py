@@ -168,7 +168,7 @@ class Game:
         for x in self.table.seats:
             if x.isfilled():
                 if x.justsat == False:
-                    a++
+                    a += 1
                     if a == self.table.seatstaken():
                         a = 0
                     if a == (self.dealer + 1) % self.table.seatstaken():
@@ -238,20 +238,20 @@ class Table:
     def seatstaken(self):
         a = 0
         for x in self.seats:
-            a++ if x.isfilled()
+            a += 1 if x.isfilled()
         return a
 
     def seatsopen(self):
         a = 0
         for x in self.seats:
-            a++ if x.isfilled()
+            a += 1 if x.isfilled()
         return len(self.seats) - a
 
     def inplay(self):
         a = 0
         for x in self.seats:
             if x.isfilled():
-                a++ if x.justsat == False
+                a += 1 if x.justsat == False
         return a
 
     def sitdown(self, player):
