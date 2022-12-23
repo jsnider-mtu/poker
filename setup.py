@@ -8,16 +8,16 @@ import texas
 with open('docs/README.txt', 'r') as f:
     long_description = f.read()
 
-class PyTest(TestCommand):
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-
-    def run_tests(self):
-        import pytest
-        errcode = pytest.main(self.test_args)
-        sys.exit(errcode)
+#class PyTest(TestCommand):
+#    def finalize_options(self):
+#        TestCommand.finalize_options(self)
+#        self.test_args = []
+#        self.test_suite = True
+#
+#    def run_tests(self):
+#        import pytest
+#        errcode = pytest.main(self.test_args)
+#        sys.exit(errcode)
 
 setup(
     name='texas',
@@ -25,16 +25,16 @@ setup(
     url='https://github.com/jsnider-mtu/texas/',
     license='GNU GPL2.0',
     author='Joshua Snider',
-    tests_require=['pytest'],
+    #tests_require=['pytest'],
     install_requires=[],
-    cmdclass={'test': PyTest},
+    #cmdclass={'test': PyTest},
     author_email='afsa@tinyhippo.ninja',
     description='Texas Hold\'Em as a Service',
     long_description=long_description,
     packages=['texas'],
     include_package_data=True,
     platforms='any',
-    test_suite='texas.test.test_texas',
+    #test_suite='texas.test.test_texas',
     classifiers = [
         'Programming Language :: Python',
         'Development Status :: 0 - Alpha',
@@ -45,7 +45,7 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Games :: Texas Hold\'Em Poker'
         ],
-    extras_require={
-        'testing': ['pytest']
-    }
+    #extras_require={
+    #    'testing': ['pytest']
+    #}
 )
