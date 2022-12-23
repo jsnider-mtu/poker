@@ -172,11 +172,11 @@ class Game:
                         a = 0
                     if a == (self.dealer + 1) % self.table.seatstaken():
                         x.p.blind(self.table.smallblind)
-                        self.table.pot.add(self.table.smallblind, 0)
+                        self.table.pot.add(self.table.smallblind, self.table.smallblind)
                         msg += f"{x.p.name} puts in the small blind ${self.table.smallblind}\n"
                     elif a == (self.dealer + 2) % self.table.seatstaken():
                         x.p.blind(self.table.bigblind)
-                        self.table.pot.add(self.table.bigblind, 0)
+                        self.table.pot.add(self.table.bigblind, self.table.bigblind)
                         msg += f"{x.p.name} puts in the big blind ${self.table.bigblind}\n"
         return msg
 

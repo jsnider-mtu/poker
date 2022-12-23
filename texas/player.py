@@ -26,7 +26,7 @@ class Player:
     def blind(self, amount):
         if amount <= self.purse:
             self.purse -= amount
-            self.lastbet += amount
+            self.lastbet = amount
             return True
         return False
 
