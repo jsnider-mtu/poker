@@ -57,10 +57,10 @@ class Game:
             pile.append(self.table.comm.rivercard)
             for y in f.hand.cards:
                 pile.append(y)
-            hand = []
             maxscore = communityscore
             maxhand = [x for x in self.table.comm.flopcards]+[self.table.comm.turncard]+[self.table.comm.rivercard]
             for z in combos:
+                hand = []
                 for a in z:
                     hand.append(pile[a])
                 score = self.scorehand(hand)
