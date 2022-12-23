@@ -163,17 +163,21 @@ class Game:
 
     def blinds(self):
         msg = ""
-        curturn = 1
+        small = 1
+        if self.table.inplay() == 2:
+            big = 0
+        else:
+            big = 2
         c = -1
         for x in self.table.seats:
             if x.isfilled():
                 if x.justsat == False:
                     c += 1
-                    if c == curturn:
+                    if c == small:
                         x.p.blind(self.table.smallblind)
                         self.table.pot.add(self.table.smallblind, self.table.smallblind)
                         msg += f"{x.p.name} puts in the small blind ${self.table.smallblind}\n"
-                    elif c == curturn + 1:
+                    elif c == big:
                         x.p.blind(self.table.bigblind)
                         self.table.pot.add(self.table.bigblind, self.table.bigblind)
                         msg += f"{x.p.name} puts in the big blind ${self.table.bigblind}\n"
