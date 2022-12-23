@@ -8,8 +8,8 @@ class Card:
 
     def __init__(self, suit, value):
         assert suit in ['Hearts', 'Clubs', 'Diamonds', 'Spades']
-        assert value in range(1,14)
-        self.vdict = {1: 'Ace', 11: 'Jack', 12: 'Queen', 13: 'King'}
+        assert value in range(2,15)
+        self.vdict = {14: 'Ace', 11: 'Jack', 12: 'Queen', 13: 'King'}
         self.suit = suit
         self.value = self.vdict.get(value, value)
 
