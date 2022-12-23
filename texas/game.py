@@ -2,8 +2,7 @@
 """
 Texas Hold'Em
 """
-#from deck import *
-#from player import *
+from . import deck, player
 
 class Game:
     """Configures the table and calculates the winner or each hand"""
@@ -11,7 +10,7 @@ class Game:
     def __init__(self, name):
         self.name = name
         self.suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades']
-        self.d = Deck(self.suits)
+        self.d = deck.Deck(self.suits)
         self.table = Table(self.name, self.d, 8, 1, 2)
         self.dealer = 0
         self.playerturn = 3
@@ -218,10 +217,10 @@ class Seat:
 class Table:
     """A table consisting of seats and a deck"""
 
-    def __init__(self, name, deck, seats, smallblind, bigblind):
+    def __init__(self, name, deckk, seats, smallblind, bigblind):
         self.name = name
-        self.deck = deck
-        self.comm = Community()
+        self.deck = deckk
+        self.comm = deck.Community()
         self.seats = set()
         for x in range(seats):
             self.seats.append(Seat())
