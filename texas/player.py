@@ -44,6 +44,7 @@ class Player:
 
     def check(self):
         if self.minbet == 0:
+            self.hasbet = True
             self.Turn = False
             return True
         return False
