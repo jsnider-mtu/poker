@@ -62,7 +62,7 @@ class Game:
             for z in combos:
                 hand = []
                 for a in z:
-                    hand.append(pile[a])
+                    hand.append(pile[a - 1])
                 score = self.scorehand(hand)
                 if score > maxscore:
                     maxscore = score
