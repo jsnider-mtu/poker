@@ -252,7 +252,7 @@ class Table:
         a = 0
         for x in self.seats:
             if x.isfilled():
-                if x.justsat == False:
+                if x.justsat == False and x.p.folded == False:
                     a += 1
         return a
 
