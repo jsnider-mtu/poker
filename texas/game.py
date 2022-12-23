@@ -50,7 +50,7 @@ class Game:
         communityscore = self.scorehand([x for x in self.table.comm.flopcards]+
                                 [self.table.comm.turncard]+[self.table.comm.rivercard])
         for f in finalists:
-            pile = set()
+            pile = []
             for y in self.table.comm.flopcards:
                 pile.append(y)
             pile.append(self.table.comm.turncard)
@@ -221,7 +221,7 @@ class Table:
         self.name = name
         self.deck = deckk
         self.comm = deck.Community()
-        self.seats = set()
+        self.seats = []
         for x in range(seats):
             self.seats.append(Seat())
         self.smallblind = smallblind
