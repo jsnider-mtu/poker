@@ -46,7 +46,7 @@ class Game:
         finalhandsdict = {}
         for x in self.table.seats:
             if x.isfilled():
-                if !x.justsat and !x.p.folded:
+                if x.justsat == False and x.p.folded == False:
                     finalists.append(x.p)
         communityscore = self.scorehand([x for x in self.table.comm.flopcards]+
                                 [self.table.comm.turncard]+[self.table.comm.rivercard])
@@ -168,7 +168,7 @@ class Game:
         a = self.dealer
         for x in self.table.seats:
             if x.isfilled():
-                if !x.justsat:
+                if x.justsat == False:
                     a++
                     if a == self.table.seatstaken():
                         a = 0
@@ -252,13 +252,13 @@ class Table:
         a = 0
         for x in self.seats:
             if x.isfilled():
-                a++ if !x.justsat
+                a++ if x.justsat == False
         return a
 
     def sitdown(self, player):
         if self.seatsopen() > 0:
             for x in self.seats:
-                if !x.isfilled():
+                if x.isfilled() == False:
                     x.fill(player)
                     break
 
