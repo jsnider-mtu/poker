@@ -11,7 +11,7 @@ class Player:
     def __init__(self, name, purse=100):
         self.name = name
         self.turn = False
-        self.hand = deck.Hand()
+        self.hand = deck.Hand(self.name)
         self.purse = purse
         self.folded = False
         self.lastbet = 0
