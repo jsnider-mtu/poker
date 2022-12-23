@@ -276,6 +276,7 @@ class Table:
         self.pot.clean()
         for x in self.seats:
             if x.isfilled():
+                x.p.hand.fold()
                 x.p.turn = False
                 x.p.lastbet = 0
                 x.p.hasbet = False
