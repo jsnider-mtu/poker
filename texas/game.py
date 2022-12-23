@@ -48,6 +48,8 @@ class Game:
             if x.isfilled():
                 if x.justsat == False and x.p.folded == False:
                     finalists.append(x.p)
+        if len(finalists) == 1:
+            return finalists, {}
         communityscore = self.scorehand([x for x in self.table.comm.flopcards]+
                                 [self.table.comm.turncard]+[self.table.comm.rivercard])
         for f in finalists:
@@ -82,6 +84,8 @@ class Game:
 
     def scorehand(self, cards):
         """Check for each hand type from top to bottom"""
+        if None in cards:
+            return 0
         vdict = {'Ace': 14, 'Jack': 11, 'Queen': 12, 'King': 13}
         valuesdict = {}
         for x in cards:
