@@ -238,20 +238,23 @@ class Table:
     def seatstaken(self):
         a = 0
         for x in self.seats:
-            a += 1 if x.isfilled()
+            if x.isfilled():
+                a += 1
         return a
 
     def seatsopen(self):
         a = 0
         for x in self.seats:
-            a += 1 if x.isfilled()
+            if x.isfilled():
+                a += 1
         return len(self.seats) - a
 
     def inplay(self):
         a = 0
         for x in self.seats:
             if x.isfilled():
-                a += 1 if x.justsat == False
+                if x.justsat == False:
+                    a += 1
         return a
 
     def sitdown(self, player):
