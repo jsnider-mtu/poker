@@ -81,12 +81,14 @@ class Game:
 
     def scorehand(self, cards):
         """Check for each hand type from top to bottom"""
+        vdict = {'Ace': 14, 'Jack': 11, 'Queen': 12, 'King': 13}
         valuesdict = {}
         for x in cards:
+            realval = vdict.get(x.value, x.value)
             try:
-                valuesdict[x.value] += 1
+                valuesdict[realval] += 1
             except KeyError:
-                valuesdict[x.value] = 1
+                valuesdict[realval] = 1
         flush = cards[0].suit == cards[1].suit == cards[2].suit == cards[3].suit == cards[4].suit
         maxval = 2
         minval = 14
