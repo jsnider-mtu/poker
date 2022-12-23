@@ -97,10 +97,10 @@ class Game:
         straight = True
         fullhouse = True
         for k, v in valuesdict.items():
-            if k > maxval:
-                maxval = k
-            if k < minval:
-                minval = k
+            if int(k) > maxval:
+                maxval = int(k)
+            if int(k) < minval:
+                minval = int(k)
             if v != 1:
                 straight = False
             if v != 3 and v != 2:
@@ -108,16 +108,16 @@ class Game:
             if v == 2:
                 if pair:
                     twopair = True
-                    twopairval = k
+                    twopairval = int(k)
                 else:
                     pair = True
-                    pairval = k
+                    pairval = int(k)
             if v == 3:
                 threeofakind = True
-                threeofakindval = k
+                threeofakindval = int(k)
             if v == 4:
                 fourofakind = True
-                fourofakindval = k
+                fourofakindval = int(k)
         if straight:
             if maxval - minval != 4:
                 straight = False
@@ -127,38 +127,38 @@ class Game:
             score = 4096 + fourofakindval
             for k in valuesdict.keys():
                 if k != fourofakindval:
-                    score += k
+                    score += int(k)
         elif fullhouse:
             score = 2048
             for k, v in valuesdict.items():
                 if v == 3:
-                    score += k*2
+                    score += int(k)*2
                 else:
-                    score += k
+                    score += int(k)
         elif flush:
             score = 1024
             for k in valuesdict.keys():
-                score += k
+                score += int(k)
         elif straight:
             score = 512 + maxval
         elif threeofakind:
             score = 256 + threeofakindval
             for k in valuesdict.keys():
-                score += k
+                score += int(k)
         elif twopair:
             score = 128 + twopairval + pairval
             for k, v in valuesdict.items():
                 if v == 1:
-                    score += k
+                    score += int(k)
         elif pair:
             score = 64 + pairval
             for k, v in valuesdict.items():
                 if v == 1:
-                    score += k
+                    score += int(k)
         else:
             score = 0
             for k in valuesdict.keys():
-                score += k
+                score += int(k)
         return score
 
     def blinds(self):
