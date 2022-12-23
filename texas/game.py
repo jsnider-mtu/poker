@@ -49,7 +49,7 @@ class Game:
                 if x.justsat == False and x.p.folded == False:
                     finalists.append(x.p)
         if len(finalists) == 1:
-            return finalists, {}
+            return [x.name for x in finalists], {}
         communityscore = self.scorehand([x for x in self.table.comm.flopcards]+
                                 [self.table.comm.turncard]+[self.table.comm.rivercard])
         for f in finalists:
