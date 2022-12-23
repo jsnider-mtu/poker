@@ -270,6 +270,7 @@ class Table:
                 break
 
     def clean(self):
+        self.pot.clean()
         for x in self.seats:
             if x.isfilled():
                 x.p.turn = False
@@ -287,3 +288,6 @@ class Pot:
     def add(self, amount, diff):
         self.pot += diff
         self.lastbet = amount
+
+    def clean(self):
+        self.lastbet = 0
