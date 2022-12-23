@@ -269,6 +269,14 @@ class Table:
                 x.empty()
                 break
 
+    def clean(self):
+        for x in self.seats:
+            if x.isfilled():
+                x.p.turn = False
+                x.p.lastbet = 0
+                x.p.hasbet = False
+                x.p.minbet = 0
+
 class Pot:
     """The Pot is the total bets this hand"""
 
