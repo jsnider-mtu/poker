@@ -84,6 +84,6 @@ class Community:
         return msg
 
     def clean(self):
-        self.flopcards = None
+        self.flopcards = []
         self.turncard = None
         self.rivercard = None
