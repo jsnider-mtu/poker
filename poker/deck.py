@@ -55,7 +55,7 @@ class Community:
     """Community cards are the 5 shared cards dealt in 3 phases"""
 
     def __init__(self):
-        self.flopcards = None
+        self.flopcards = []
         self.turncard = None
         self.rivercard = None
 
