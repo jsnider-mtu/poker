@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Texas Hold'Em
+Poker
 """
 from . import deck, player
 
@@ -14,6 +14,7 @@ class Game:
         self.dealer = 0
         self.playerturn = 3
         self.running = False
+        self.lastturn = 0.0
 
     def __repr__(self):
         return f"Table: {self.table.name} has {len(self.table.seats)} seats, {self.table.seatstaken()} of which are taken"
