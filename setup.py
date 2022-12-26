@@ -3,7 +3,7 @@
 from setuptools import setup
 import os
 import sys
-import texas
+import poker
 
 with open('docs/README.txt', 'r') as f:
     long_description = f.read()
@@ -20,21 +20,21 @@ with open('docs/README.txt', 'r') as f:
 #        sys.exit(errcode)
 
 setup(
-    name='texas',
-    version=texas.__version__,
-    url='https://github.com/jsnider-mtu/texas/',
+    name='poker',
+    version=poker.__version__,
+    url='https://github.com/jsnider-mtu/poker/',
     license='GNU GPL2.0',
     author='Joshua Snider',
     #tests_require=['pytest'],
     install_requires=[],
     #cmdclass={'test': PyTest},
     author_email='afsa@tinyhippo.ninja',
-    description='Texas Hold\'Em as a Service',
+    description='Poker module for creating games',
     long_description=long_description,
-    packages=['texas'],
+    packages=['poker'],
     include_package_data=True,
     platforms='any',
-    #test_suite='texas.test.test_texas',
+    #test_suite='poker.test.test_poker',
     classifiers = [
         'Programming Language :: Python',
         'Development Status :: 0 - Alpha',
@@ -43,7 +43,7 @@ setup(
         'Intended Audience :: People',
         'License :: GNU GPL2.0',
         'Operating System :: OS Independent',
-        'Topic :: Games :: Texas Hold\'Em Poker'
+        'Topic :: Games :: Poker'
         ],
     #extras_require={
     #    'testing': ['pytest']
