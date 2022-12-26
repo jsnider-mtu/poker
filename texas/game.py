@@ -127,7 +127,12 @@ class Game:
                 fourofakindval = int(k)
         if straight:
             if maxval - minval != 4:
-                straight = False
+                if maxval == 14:
+                    for x in ['2', '3', '4', '5']:
+                        if x not in valuesdict.keys():
+                            straight = False
+                else:
+                    straight = False
         if straight and flush:
             score = 8192 + maxval
         elif fourofakind:
