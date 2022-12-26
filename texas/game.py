@@ -7,11 +7,10 @@ from . import deck, player
 class Game:
     """Configures the table and calculates the winner or each hand"""
 
-    def __init__(self, name):
+    def __init__(self, name, seats=8, smallblind=1, bigblind=2):
         self.name = name
-        self.suits = ['Hearts', 'Clubs', 'Diamonds', 'Spades']
-        self.d = deck.Deck(self.suits)
-        self.table = Table(self.name, self.d, 8, 1, 2)
+        self.d = deck.Deck()
+        self.table = Table(self.name, self.d, seats, smallblind, bigblind)
         self.dealer = 0
         self.playerturn = 3
         self.running = False

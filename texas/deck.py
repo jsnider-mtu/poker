@@ -19,9 +19,9 @@ class Card:
 class Deck:
     """A deck is a collection of cards"""
 
-    def __init__(self, suits=[]):
+    def __init__(self):
         """Create a deck (unshuffled)"""
-        self.deck = [Card(s, v) for s in suits for v in range(2, 15)]
+        self.deck = [Card(s, v) for s in ['Hearts', 'Clubs', 'Diamonds', 'Spades'] for v in range(2, 15)]
 
     def shuffle(self):
         """Shuffle the deck some number of times between 1 and 6"""
