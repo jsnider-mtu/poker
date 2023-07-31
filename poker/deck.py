@@ -3,34 +3,41 @@
 
 import random
 
+
 class Card:
     """A card has a face value and a suit."""
 
     def __init__(self, suit, value):
-        assert suit in ['Hearts', 'Clubs', 'Diamonds', 'Spades']
-        assert value in range(2,15)
-        self.vdict = {14: 'Ace', 11: 'Jack', 12: 'Queen', 13: 'King'}
+        assert suit in ["Hearts", "Clubs", "Diamonds", "Spades"]
+        assert value in range(2, 15)
+        self.vdict = {14: "Ace", 11: "Jack", 12: "Queen", 13: "King"}
         self.suit = suit
         self.value = self.vdict.get(value, value)
 
     def __repr__(self):
         return f"{self.value} of {self.suit}"
 
+
 class Deck:
     """A deck is a collection of cards"""
 
     def __init__(self):
         """Create a deck (unshuffled)"""
-        self.deck = [Card(s, v) for s in ['Hearts', 'Clubs', 'Diamonds', 'Spades'] for v in range(2, 15)]
+        self.deck = [
+            Card(s, v)
+            for s in ["Hearts", "Clubs", "Diamonds", "Spades"]
+            for v in range(2, 15)
+        ]
 
     def shuffle(self):
         """Shuffle the deck some number of times between 1 and 6"""
-        for i in range(random.randint(1,6)):
+        for i in range(random.randint(1, 6)):
             random.shuffle(self.deck)
 
     def deal(self, player):
         """Deal one card from the top of the deck"""
         player.hand.add(self.deck.pop(0))
+
 
 class Hand:
     """A hand is two cards dealt from the Deck"""
@@ -50,6 +57,7 @@ class Hand:
 
     def fold(self):
         self.cards = []
+
 
 class Community:
     """Community cards are the 5 shared cards dealt in 3 phases"""
