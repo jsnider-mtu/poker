@@ -6,8 +6,8 @@ The player has a purse, an ante, and a hand
 """
 from . import deck
 
-class Player:
 
+class Player:
     def __init__(self, name, purse=100):
         self.name = name
         self.turn = False
@@ -19,9 +19,11 @@ class Player:
         self.minbet = 0
 
     def __repr__(self):
-        return f"Player {self.name} is holding {self.hand}\nTheir purse "\
-               f"is at ${self.purse} and their last bet this round was "\
-               f"{self.lastbet}"
+        return (
+            f"Player {self.name} is holding {self.hand}\nTheir purse "
+            f"is at ${self.purse} and their last bet this round was "
+            f"{self.lastbet}"
+        )
 
     def blind(self, amount):
         if amount <= self.purse:

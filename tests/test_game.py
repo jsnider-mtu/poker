@@ -3,9 +3,10 @@
 from player import *
 from game import *
 
+
 def test_game():
-    p = Player('josh')
-    q = Player('joey')
+    p = Player("josh")
+    q = Player("joey")
     g = Game(p)
     g.playerJoin(q)
     g.deal()

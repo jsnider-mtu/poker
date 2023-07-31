@@ -4,6 +4,7 @@ Poker
 """
 from . import deck, player
 
+
 class Game:
     """Configures the table and calculates the winner or each hand"""
 
@@ -21,26 +22,28 @@ class Game:
 
     def calculatewinners(self):
         """Determine a winner"""
-        combos = [[1, 2, 3, 4, 6],
-                [1, 2, 3, 4, 7],
-                [1, 2, 3, 5, 6],
-                [1, 2, 3, 5, 7],
-                [1, 2, 3, 6, 7],
-                [1, 2, 4, 5, 6],
-                [1, 2, 4, 5, 7],
-                [1, 2, 4, 6, 7],
-                [1, 2, 5, 6, 7],
-                [1, 3, 4, 5, 6],
-                [1, 3, 4, 5, 7],
-                [1, 3, 4, 6, 7],
-                [1, 3, 5, 6, 7],
-                [1, 4, 5, 6, 7],
-                [2, 3, 4, 5, 6],
-                [2, 3, 4, 5, 7],
-                [2, 3, 4, 6, 7],
-                [2, 3, 5, 6, 7],
-                [2, 4, 5, 6, 7],
-                [3, 4, 5, 6, 7]]
+        combos = [
+            [1, 2, 3, 4, 6],
+            [1, 2, 3, 4, 7],
+            [1, 2, 3, 5, 6],
+            [1, 2, 3, 5, 7],
+            [1, 2, 3, 6, 7],
+            [1, 2, 4, 5, 6],
+            [1, 2, 4, 5, 7],
+            [1, 2, 4, 6, 7],
+            [1, 2, 5, 6, 7],
+            [1, 3, 4, 5, 6],
+            [1, 3, 4, 5, 7],
+            [1, 3, 4, 6, 7],
+            [1, 3, 5, 6, 7],
+            [1, 4, 5, 6, 7],
+            [2, 3, 4, 5, 6],
+            [2, 3, 4, 5, 7],
+            [2, 3, 4, 6, 7],
+            [2, 3, 5, 6, 7],
+            [2, 4, 5, 6, 7],
+            [3, 4, 5, 6, 7],
+        ]
         finalists = []
         finalscoredict = {}
         finalhandsdict = {}
@@ -50,8 +53,11 @@ class Game:
                     finalists.append(x.p)
         if len(finalists) == 1:
             return [x.name for x in finalists], {}
-        communityscore = self.scorehand([x for x in self.table.comm.flopcards]+
-                                [self.table.comm.turncard]+[self.table.comm.rivercard])
+        communityscore = self.scorehand(
+            [x for x in self.table.comm.flopcards]
+            + [self.table.comm.turncard]
+            + [self.table.comm.rivercard]
+        )
         for f in finalists:
             pile = []
             for y in self.table.comm.flopcards:
@@ -61,7 +67,11 @@ class Game:
             for y in f.hand.cards:
                 pile.append(y)
             maxscore = communityscore
-            maxhand = [x for x in self.table.comm.flopcards]+[self.table.comm.turncard]+[self.table.comm.rivercard]
+            maxhand = (
+                [x for x in self.table.comm.flopcards]
+                + [self.table.comm.turncard]
+                + [self.table.comm.rivercard]
+            )
             for z in combos:
                 hand = []
                 for a in z:
@@ -86,7 +96,7 @@ class Game:
         """Check for each hand type from top to bottom"""
         if None in cards:
             return 0
-        vdict = {'Ace': 14, 'Jack': 11, 'Queen': 12, 'King': 13}
+        vdict = {"Ace": 14, "Jack": 11, "Queen": 12, "King": 13}
         valuesdict = {}
         for x in cards:
             realval = vdict.get(x.value, x.value)
@@ -94,7 +104,13 @@ class Game:
                 valuesdict[realval] += 1
             except KeyError:
                 valuesdict[realval] = 1
-        flush = cards[0].suit == cards[1].suit == cards[2].suit == cards[3].suit == cards[4].suit
+        flush = (
+            cards[0].suit
+            == cards[1].suit
+            == cards[2].suit
+            == cards[3].suit
+            == cards[4].suit
+        )
         maxval = 2
         minval = 14
         pair = False
@@ -128,7 +144,7 @@ class Game:
         if straight:
             if maxval - minval != 4:
                 if maxval == 14:
-                    for x in ['2', '3', '4', '5']:
+                    for x in ["2", "3", "4", "5"]:
                         if x not in valuesdict.keys():
                             straight = False
                 else:
@@ -144,7 +160,7 @@ class Game:
             score = 2048
             for k, v in valuesdict.items():
                 if v == 3:
-                    score += int(k)*2
+                    score += int(k) * 2
                 else:
                     score += int(k)
         elif flush:
@@ -189,7 +205,9 @@ class Game:
                     elif c == big:
                         x.p.blind(self.table.bigblind)
                         self.table.pot.add(self.table.bigblind, self.table.bigblind)
-                        msg += f"{x.p.name} puts in the big blind ${self.table.bigblind}\n"
+                        msg += (
+                            f"{x.p.name} puts in the big blind ${self.table.bigblind}\n"
+                        )
         return msg
 
     def playerjoin(self, player):
@@ -203,6 +221,7 @@ class Game:
     def playerleave(self, player):
         self.table.standup(player)
         return True
+
 
 class Seat:
     """A seat at the table"""
@@ -225,6 +244,7 @@ class Seat:
 
     def empty(self):
         self.p = None
+
 
 class Table:
     """A table consisting of seats and a deck"""
@@ -301,6 +321,7 @@ class Table:
                 x.p.lastbet = 0
                 x.p.hasbet = False
                 x.p.minbet = 0
+
 
 class Pot:
     """The Pot is the total bets this hand"""
