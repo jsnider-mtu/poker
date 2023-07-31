@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 
-from setuptools import setup
 import os
 import sys
+from setuptools import setup
+
 import poker
 
 with open("docs/README.txt", "r") as f:
