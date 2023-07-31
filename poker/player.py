@@ -14,39 +14,39 @@ class Player:
         self.hand = deck.Hand(self.name)
         self.purse = purse
         self.folded = False
-        self.lastbet = 0
-        self.hasbet = False
-        self.minbet = 0
+        self.last_bet = 0
+        self.has_bet = False
+        self.min_bet = 0
 
     def __repr__(self):
         return (
             f"Player {self.name} is holding {self.hand}\nTheir purse "
             f"is at ${self.purse} and their last bet this round was "
-            f"{self.lastbet}"
+            f"{self.last_bet}"
         )
 
     def blind(self, amount):
         if amount <= self.purse:
             self.purse -= amount
-            self.lastbet = amount
+            self.last_bet = amount
             return True
         return False
 
     def bet(self, amount, diff):
-        if amount < self.minbet:
+        if amount < self.min_bet:
             return False
         if amount <= self.purse:
             self.purse -= diff
-            self.lastbet = amount
-            self.hasbet = True
+            self.last_bet = amount
+            self.has_bet = True
             self.turn = False
             return True
         print(f"{amount} is greater than the purse: {self.purse}")
         return False
 
     def check(self):
-        if self.minbet == 0:
-            self.hasbet = True
+        if self.min_bet == 0:
+            self.has_bet = True
             self.Turn = False
             return True
         return False
