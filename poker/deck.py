@@ -25,14 +25,14 @@ class Deck:
     def __init__(self):
         """Create a deck (unshuffled)"""
         self.deck = [
-            Card(s, v)
-            for s in ["Hearts", "Clubs", "Diamonds", "Spades"]
-            for v in range(2, 15)
+            Card(suit, value)
+            for suit in ["Hearts", "Clubs", "Diamonds", "Spades"]
+            for value in range(2, 15)
         ]
 
     def shuffle(self):
         """Shuffle the deck some number of times between 1 and 6"""
-        for i in range(random.randint(1, 6)):
+        for _ in range(random.randint(1, 6)):
             random.shuffle(self.deck)
 
     def deal(self, player):
@@ -43,16 +43,16 @@ class Deck:
 class Hand:
     """A hand is two cards dealt from the Deck"""
 
-    def __init__(self, playername):
+    def __init__(self, player_name):
         self.cards = []
-        self.playername = playername
+        self.player_name = player_name
 
     def __repr__(self):
         return f"a {self.cards[0]} and a {self.cards[1]}"
 
     def add(self, card):
         if len(self.cards) >= 2:
-            print(f"{self.playername}'s hand is already full")
+            print(f"{self.player_name}'s hand is already full")
         else:
             self.cards.append(card)
 
@@ -64,35 +64,35 @@ class Community:
     """Community cards are the 5 shared cards dealt in 3 phases"""
 
     def __init__(self):
-        self.flopcards = []
-        self.turncard = None
-        self.rivercard = None
+        self.flop_cards = []
+        self.turn_card = None
+        self.river_card = None
 
     def flop(self, deck):
         deck.deck.pop(0)
-        self.flopcards = []
+        self.flop_cards = []
         for x in range(3):
-            self.flopcards.append(deck.deck.pop(0))
+            self.flop_cards.append(deck.deck.pop(0))
 
     def turn(self, deck):
         deck.deck.pop(0)
-        self.turncard = deck.deck.pop(0)
+        self.turn_card = deck.deck.pop(0)
 
     def river(self, deck):
         deck.deck.pop(0)
-        self.rivercard = deck.deck.pop(0)
+        self.river_card = deck.deck.pop(0)
 
     def cards(self):
         msg = "On the table:"
-        for x in self.flopcards:
+        for x in self.flop_cards:
             msg += f" {x};"
-        if self.turncard:
-            msg += f" {self.turncard};"
-        if self.rivercard:
-            msg += f" {self.rivercard};"
+        if self.turn_card:
+            msg += f" {self.turn_card};"
+        if self.river_card:
+            msg += f" {self.river_card};"
         return msg
 
     def clean(self):
-        self.flopcards = []
-        self.turncard = None
-        self.rivercard = None
+        self.flop_cards = []
+        self.turn_card = None
+        self.river_card = None
