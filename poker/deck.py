@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""The Deck and Card classes"""
-
+"""
+The Deck and Card classes
+"""
 import random
 
 
